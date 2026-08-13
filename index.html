@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Mon Coach Sport</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f4f6;color:#111;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;padding-bottom:86px}
+header{background:#111;color:#fff;padding:18px 18px 15px;position:sticky;top:0;z-index:5}.top{display:flex;justify-content:space-between}.brand{font-size:24px;font-weight:850}.muted{color:#777;font-size:13px}.headmuted{color:#aaa;font-size:12px}.clock{font-weight:800;font-variant-numeric:tabular-nums}
+main{max-width:720px;margin:auto;padding:14px}.card{background:#fff;border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 2px 12px #0000000b}.hero{background:#111;color:#fff}.hero .muted{color:#aaa}
+h2{font-size:19px;margin:0 0 5px}.big{font-size:26px;font-weight:850;margin-top:5px}.btn{width:100%;border:0;border-radius:13px;padding:13px 15px;font-weight:800;background:#111;color:#fff;margin-top:13px}.hero .btn{background:#fff;color:#111}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tile{border:0;background:#f0f0f2;border-radius:15px;padding:13px;text-align:left}.tile b{display:block}.tile span{font-size:11px;color:#777}
+.row{display:flex;gap:11px;align-items:center;padding:12px 0;border-top:1px solid #eee}.row:first-child{border-top:0}.dot{width:39px;height:39px;border-radius:12px;background:#eee;display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}.grow{flex:1}.grow b{display:block}.grow span{font-size:12px;color:#777}.badge{font-size:10px;font-weight:800;background:#eee;padding:5px 7px;border-radius:999px}
+.ex{display:flex;gap:11px;padding:12px 0;border-top:1px solid #eee}.ex:first-child{border-top:0}.ex input{width:21px;height:21px}.ex b{font-size:14px}.ex small{display:block;color:#777;font-size:12px;margin-top:3px}
+.section{display:none}.section.active{display:block}.warn{background:#fff5d8;padding:13px;border-radius:15px;font-size:12px;line-height:1.45}.danger{background:#fff0f0;padding:13px;border-radius:15px;font-size:12px;line-height:1.45}
+.timer{text-align:center;padding:20px}.time{font-size:58px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-2px}.timer .btn{width:46%;margin:5px 1%;display:inline-block}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;z-index:10;display:flex;justify-content:space-around;padding:7px 3px calc(7px + env(safe-area-inset-bottom))}nav button{border:0;background:transparent;color:#777;font-size:10px;font-weight:800;padding:8px 6px;border-radius:11px}nav button.active{background:#111;color:#fff}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="brand">Mon Coach</div><div class="headmuted">Muscle • cardio • mobilité</div></div><div class="clock" id="clock"></div></div></header>
+<main>
+<section id="accueil" class="section active">
+<div class="card hero"><div class="headmuted">AUJOURD'HUI</div><div class="big" id="today"></div><div class="headmuted" id="todayType"></div><button class="btn" onclick="startToday()">Démarrer</button></div>
+<div class="card"><h2>Ma semaine</h2><div id="week"></div></div>
+<div class="card"><h2>Accès rapide</h2><div class="grid">
+<button class="tile" onclick="go('upperA')"><b>Upper A</b><span>Musculation + finisher</span></button>
+<button class="tile" onclick="go('lower')"><b>Lower</b><span>Jambes + finisher</span></button>
+<button class="tile" onclick="go('upperB')"><b>Upper B</b><span>Musculation + finisher</span></button>
+<button class="tile" onclick="go('maison')"><b>Maison 20 min</b><span>Mobilité + calisthenics</span></button>
+</div></div></section>
+
+<section id="upperA" class="section">
+<div class="card"><div class="muted">SALLE • UPPER A</div><h2>Haut du corps</h2><div class="muted">3 séries principales • RIR 2–3</div></div>
+<div class="card" id="ua"></div><div class="card"><h2>Finisher — 8 min</h2><div class="muted">EMOM : 40 s vélo/rameur soutenu, puis 8–10 step-ups. Rythme régulier.</div><button class="btn" onclick="timerStart(480,'Finisher Upper A')">Lancer le chrono</button></div></section>
+
+<section id="lower" class="section">
+<div class="card"><div class="muted">SALLE • LOWER</div><h2>Jambes</h2><div class="muted">RIR 2–3 • respiration fluide</div></div>
+<div class="card" id="lo"></div><div class="card"><h2>Finisher — 8 min</h2><div class="muted">40 s vélo, puis 40 s marche inclinée ou step-ups bas. Intensité contrôlée.</div><button class="btn" onclick="timerStart(480,'Finisher Lower')">Lancer le chrono</button></div></section>
+
+<section id="upperB" class="section">
+<div class="card"><div class="muted">SALLE • UPPER B</div><h2>Haut du corps</h2><div class="muted">RIR 2–3 • mouvements propres</div></div>
+<div class="card" id="ub"></div><div class="card"><h2>Finisher — 8 min</h2><div class="muted">AMRAP : 6 calories vélo/rameur → 8 step-ups → 8 pompes inclinées sur banc.</div><button class="btn" onclick="timerStart(480,'Finisher Upper B')">Lancer le chrono</button></div></section>
+
+<section id="maison" class="section">
+<div class="card hero"><div class="headmuted">MAISON</div><div class="big">20 minutes</div><div class="headmuted">Sans matériel • intensité modérée</div><button class="btn" onclick="timerStart(1200,'Maison 20 min')">Lancer 20 min</button></div>
+<div class="card">
+<div class="ex"><div><b>0–5 min — Mobilité</b><small>Respiration, thorax, hanches, chevilles, épaules. Lentement.</small></div></div>
+<div class="ex"><div><b>5–17 min — Calisthenics</b><small>2 tours : pompes 8–12 • squats 10–15 • fentes arrière 8/côté • glute bridge 10–15 • bird-dog 6/côté. 40 s / 20 s.</small></div></div>
+<div class="ex"><div><b>17–20 min — Retour au calme</b><small>Marche lente + mobilité douce.</small></div></div></div>
+<div class="danger"><b>Hernie inguinale :</b> pas de crunchs, sit-ups, relevés de jambes, burpees, sauts ni séries à l'échec. Ne bloque pas la respiration. Douleur, nouvelle bosse, pression ou tiraillement inhabituel : arrêt et avis médical.</div>
+</section>
+
+<section id="chrono" class="section"><div class="card hero timer"><div class="headmuted" id="timerLabel">Chronomètre</div><div class="time" id="time">00:00</div><button class="btn" id="pause" onclick="timerPause()">Pause</button><button class="btn" onclick="timerReset()">Réinitialiser</button></div></section>
+
+<section id="regles" class="section"><div class="card"><h2>Progression</h2>
+<div class="ex"><div><b>Musculation</b><small>Quand tu atteins le haut de la fourchette avec 2–3 répétitions en réserve sur toutes les séries, augmente légèrement la charge.</small></div></div>
+<div class="ex"><div><b>Respiration</b><small>Expire pendant l'effort. Pas d'apnée volontaire ni de poussée maximale.</small></div></div>
+<div class="ex"><div><b>Maison</b><small>20 min suffisent. Fatigué ? Fais mobilité + marche plutôt que forcer.</small></div></div>
+</div><div class="warn"><b>Antécédent de hernie :</b> programme volontairement prudent. Si l'opération est récente ou si tu as encore douleur/faiblesse/bosse, valide les charges et exercices avec ton chirurgien ou kiné.</div></section>
+</main>
+<nav><button class="active" onclick="go('accueil',this)">Accueil</button><button onclick="go('upperA',this)">Upper A</button><button onclick="go('lower',this)">Lower</button><button onclick="go('upperB',this)">Upper B</button><button onclick="go('maison',this)">Maison</button><button onclick="go('regles',this)">Règles</button></nav>
+<script>
+const workouts={
+ua:[['Développé couché machine ou haltères','3 × 6–10'],['Tirage vertical','3 × 8–12'],['Développé incliné','3 × 8–12'],['Rowing assis poulie','3 × 8–12'],['Élévations latérales','2–3 × 12–15'],['Curl biceps','2 × 10–15'],['Triceps poulie','2 × 10–15']],
+lo:[['Presse à cuisses','3 × 8–12'],['Soulevé de terre roumain léger/modéré','3 × 8–10 • seulement si parfaitement toléré'],['Leg curl','3 × 10–15'],['Leg extension','2–3 × 10–15'],['Mollets','3 × 12–15'],['Gainage respiré','2 × 20–30 s']],
+ub:[['Tractions assistées ou tirage vertical','3 × 6–10'],['Développé épaules assis','3 × 6–10'],['Rowing poitrine appuyée','3 × 8–12'],['Presse poitrine','3 × 8–12'],['Élévations latérales','2–3 × 12–15'],['Curl incliné','2 × 10–15'],['Triceps corde','2 × 10–15']]};
+function render(id,a,p){document.getElementById(id).innerHTML=a.map((x,i)=>`<div class="ex"><input type="checkbox" data-k="${p+i}"><div><b>${x[0]}</b><small>${x[1]}</small></div></div>`).join('');document.querySelectorAll('[data-k]').forEach(x=>{x.checked=localStorage.getItem(x.dataset.k)==='1';x.onchange=()=>localStorage.setItem(x.dataset.k,x.checked?'1':'0')})}
+render('ua',workouts.ua,'ua');render('lo',workouts.lo,'lo');render('ub',workouts.ub,'ub');
+const names=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],plan={1:['Upper A','Salle'],2:['Maison 20 min','Maison'],3:['Lower','Salle'],4:['Maison 20 min','Maison'],5:['Upper B','Salle'],6:['Maison 20 min','Maison'],0:['Repos / marche','Récupération']};let day=new Date().getDay();
+document.getElementById('today').textContent=plan[day][0];document.getElementById('todayType').textContent=plan[day][1];
+document.getElementById('week').innerHTML=[1,2,3,4,5,6,0].map(d=>`<div class="row"><div class="dot">${names[d].slice(0,3)}</div><div class="grow"><b>${plan[d][0]}</b><span>${plan[d][1]}</span></div>${d===day?'<span class="badge">AUJ.</span>':''}</div>`).join('');
+function go(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function startToday(){let x=plan[day][0];go(x==='Upper A'?'upperA':x==='Lower'?'lower':x==='Upper B'?'upperB':x.startsWith('Maison')?'maison':'accueil')}
+let t=0,int=null;function timerStart(s,l){t=s;document.getElementById('timerLabel').textContent=l;go('chrono');renderTime();clearInterval(int);int=setInterval(()=>{if(t>0){t--;renderTime()}else{clearInterval(int);navigator.vibrate?.([200,100,200])}},1000);document.getElementById('pause').textContent='Pause'}
+function renderTime(){document.getElementById('time').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')}
+function timerPause(){if(int){clearInterval(int);int=null;document.getElementById('pause').textContent='Reprendre'}else{int=setInterval(()=>{if(t>0){t--;renderTime()}},1000);document.getElementById('pause').textContent='Pause'}}
+function timerReset(){clearInterval(int);int=null;t=0;renderTime();document.getElementById('pause').textContent='Reprendre'}
+function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,1000);
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body></html>
