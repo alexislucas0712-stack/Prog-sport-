@@ -35,11 +35,39 @@ main{max-width:720px;margin:auto;padding:14px}.section{display:none}.section.act
 
 <section id="workout" class="section"><div class="card hero"><div class="kicker" id="wkKicker"></div><div class="title" id="wkTitle"></div><div class="muted" id="wkMeta"></div></div><div class="card" id="exerciseList"></div><div class="card" id="finisherCard"></div></section>
 
-<section id="progression" class="section"><div class="card hero"><div class="kicker">DATA CENTER</div><div class="title">PROGRESSION</div><div class="muted">Évolution de tes charges par exercice.</div></div><div class="card" id="progressList"></div><div class="card"><h2>SAUVEGARDE</h2><div class="muted">Les données sont locales à ce navigateur/appareil.</div><button class="btn" onclick="exportData()">EXPORTER MES DONNÉES</button><button class="btn alt" onclick="clearAllData()">EFFACER LES DONNÉES</button></div></section>
+<section id="progression" class="section"><div class="card hero"><div class="kicker">DATA CENTER</div><div class="title">PROGRESSION</div><div class="muted">Évolution de tes charges par exercice.</div></div><div class="card">
+<h2>POIDS CORPOREL</h2>
+<div class="muted">Enregistre ton poids pour suivre la tendance. Idéalement, mesure-toi dans des conditions similaires.</div>
+<div class="inputrow"><input class="weight" inputmode="decimal" id="bodyWeight" placeholder="kg"><button class="btn" style="margin:0" onclick="saveBodyWeight()">ENREGISTRER</button></div>
+<div id="bodyWeightHistory" class="history"></div>
+<svg id="bodyChart" class="chart" viewBox="0 0 300 105" preserveAspectRatio="none"></svg>
+<div class="chartLabel"><span id="bodyFirst">—</span><span id="bodyTrend">—</span><span id="bodyLast">—</span></div>
+</div><div class="card"><h2>FENÊTRE</h2><div class="grid"><button class="tile" onclick="setPeriod(4)"><b>4 SEMAINES</b><span>Vue récente</span></button><button class="tile" onclick="setPeriod(8)"><b>8 SEMAINES</b><span>Vue intermédiaire</span></button><button class="tile" onclick="setPeriod(12)"><b>12 SEMAINES</b><span>Vue longue</span></button><button class="tile" onclick="setPeriod(0)"><b>TOUT</b><span>Historique complet</span></button></div><div class="muted" id="periodLabel" style="margin-top:9px">Historique complet</div></div><div class="card" id="progressList"></div><div class="card"><h2>SAUVEGARDE</h2><div class="muted">Les données sont locales à ce navigateur/appareil.</div><button class="btn" onclick="exportData()">EXPORTER MES DONNÉES</button><button class="btn alt" onclick="clearAllData()">EFFACER LES DONNÉES</button></div></section>
 
-<section id="maison" class="section"><div class="card hero"><div class="kicker">HOME PROTOCOL</div><div class="title">20 MINUTES</div><div class="muted">Mobilité + calisthenics • sans matériel</div><button class="btn" onclick="timerStart(1200,'Maison 20 min')">LANCER 20'</button></div>
-<div class="card"><div class="exercise"><b>00–05' — MOBILITÉ</b><div class="detail">Respiration, mobilité thoracique, hanches, chevilles, épaules.</div></div><div class="exercise"><b>05–17' — CALISTHENICS</b><div class="detail">2 tours : pompes 8–12 • squats 10–15 • fentes arrière 8/côté • glute bridge 10–15 • bird-dog 6/côté. 40 s / 20 s.</div></div><div class="exercise"><b>17–20' — RESET</b><div class="detail">Marche lente + mobilité douce.</div></div></div>
-<div class="danger"><b>HERNIE INGUINALE :</b> pas de crunchs, sit-ups, relevés de jambes, burpees, sauts ou séries à l'échec. Ne bloque pas la respiration. Douleur, nouvelle bosse, pression ou tiraillement inhabituel : arrêt et avis médical.</div></section>
+<section id="maison" class="section">
+<div class="card hero"><div class="kicker">HOME PROTOCOL // MOBILITY</div><div class="title">20 MINUTES</div><div class="muted">Mobilité précise + calisthenics • sans matériel</div><button class="btn" onclick="timerStart(1200,'Maison 20 min')">LANCER 20'</button></div>
+<div class="card">
+<h2>00–06' • MOBILITÉ</h2>
+<div class="exercise"><b>1. Respiration costale — 60 s</b><div class="detail">Allongé sur le dos, genoux fléchis. Inspire par le nez en ouvrant les côtes, expire lentement. Aucun blocage respiratoire.</div></div>
+<div class="exercise"><b>2. Cat-cow doux — 60 s</b><div class="detail">À quatre appuis, arrondis puis creuse légèrement le dos. Mouvement lent, sans pousser sur l'abdomen.</div></div>
+<div class="exercise"><b>3. Rotation thoracique « open book » — 60 s/côté</b><div class="detail">Sur le côté, genoux confortablement fléchis. Ouvre le bras supérieur vers l'arrière en suivant la main du regard.</div></div>
+<div class="exercise"><b>4. Mobilité cheville contre mur — 60 s/côté</b><div class="detail">Genou vers le mur sans décoller le talon. Amplitude confortable, sans forcer.</div></div>
+</div>
+<div class="card">
+<h2>06–17' • CALISTHENICS</h2>
+<div class="exercise"><b>Pompes inclinées — 2 × 8–12</b><div class="detail">Mains sur un support stable. Corps gainé sans apnée. Garde 2–3 répétitions en réserve.</div></div>
+<div class="exercise"><b>Squats au poids du corps — 2 × 10–15</b><div class="detail">Descente contrôlée, amplitude confortable, expiration pendant la remontée.</div></div>
+<div class="exercise"><b>Fentes arrière — 2 × 8/côté</b><div class="detail">Pas en arrière, buste stable, poussée progressive dans le sol.</div></div>
+<div class="exercise"><b>Glute bridge — 2 × 10–15</b><div class="detail">Monte le bassin sans pousser à fond ni bloquer la respiration.</div></div>
+<div class="exercise"><b>Bird-dog — 2 × 6/côté</b><div class="detail">À quatre appuis, tends bras et jambe opposés. Petit mouvement, bassin stable.</div></div>
+</div>
+<div class="card">
+<h2>17–20' • RETOUR AU CALME</h2>
+<div class="exercise"><b>Marche lente — 2 min</b><div class="detail">Respiration naturelle, relâche les épaules.</div></div>
+<div class="exercise"><b>Étirement fléchisseur de hanche — 30 s/côté</b><div class="detail">Fente courte, bassin neutre, sans pousser l'aine en fin d'amplitude.</div></div>
+</div>
+<div class="danger"><b>ANTÉCÉDENT DE HERNIE :</b> cette routine est volontairement modérée. Si ton opération est récente, suis d'abord les consignes de ton chirurgien. Une reprise d'activité doit être progressive ; après réparation, les recommandations varient selon le type d'intervention et l'évolution. Arrête si douleur, nouvelle bosse, pression/tiraillement inhabituel ou autre symptôme inquiétant.</div>
+</section>
 
 <section id="chrono" class="section"><div class="card hero timer"><div class="kicker" id="timerLabel">CHRONO</div><div class="time" id="time">00:00</div><button class="btn" id="pause" onclick="timerPause()">PAUSE</button><button class="btn alt" onclick="timerReset()">RESET</button></div></section>
 </main>
@@ -64,12 +92,49 @@ function getHistory(d,i){try{return JSON.parse(localStorage.getItem(historyKey(d
 function exerciseHTML(d,i,e){let v=localStorage.getItem(key(d,i))||'';let h=getHistory(d,i);let last=h.length?h[h.length-1].weight:null;let trend=h.length>1?Number(h[h.length-1].weight)-Number(h[h.length-2].weight):0;return `<div class="exercise"><div class="ename">${e[0]}</div><div class="detail">${e[1]}</div><div class="inputrow"><input class="weight" inputmode="decimal" value="${v}" placeholder="kg" id="w-${d}-${i}" onchange="saveWeight(${d},${i})"><span class="reps">CHARGE</span><span class="saved" id="s-${d}-${i}">ENREGISTRÉ</span></div>${last!==null?`<div class="history">Dernière : <b>${last} kg</b>${trend>0?` • <b style="color:var(--green)">+${trend} kg</b>`:trend<0?` • <b>${trend} kg</b>`:''} • ${h.length} entrée(s)</div>`:''}</div>`}
 function saveWeight(d,i){let el=document.getElementById('w-'+d+'-'+i),v=el.value.replace(',','.').trim();if(!v||isNaN(v))return;localStorage.setItem(key(d,i),v);let h=getHistory(d,i);h.push({date:new Date().toISOString(),weight:Number(v)});localStorage.setItem(historyKey(d,i),JSON.stringify(h));let s=document.getElementById('s-'+d+'-'+i);s.classList.add('show');setTimeout(()=>s.classList.remove('show'),900);renderWorkout(d);updateStats()}
 function allHistory(){let arr=[];Object.keys(localStorage).forEach(k=>{let m=k.match(/^mc-history-(\d+)-(\d+)$/);if(m){let d=Number(m[1]),i=Number(m[2]);getHistory(d,i).forEach(x=>arr.push({d,i,...x,name:workouts[d]?.ex[i]?.[0]||'Exercice'}))}});return arr}
-function renderProgress(){let out='';[1,3,5].forEach(d=>{workouts[d].ex.forEach((e,i)=>{let h=getHistory(d,i);if(!h.length)return;let vals=h.map(x=>Number(x.weight)),min=Math.min(...vals),max=Math.max(...vals),delta=vals.length>1?vals[vals.length-1]-vals[0]:0;let points=vals.map((v,n)=>{let x=10+(n/(Math.max(vals.length-1,1)))*280;let y=88-(max===min?40:((v-min)/(max-min))*68);return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');out+=`<div class="progressItem"><div class="progressTop"><b>${e[0]}</b><span class="delta">${delta>0?'+':''}${delta} kg</span></div><div class="muted">${vals.length} mesure(s) • ${vals[0]} → ${vals[vals.length-1]} kg</div><svg class="chart" viewBox="0 0 300 105" preserveAspectRatio="none"><defs><linearGradient id="g${d}${i}" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><polyline points="${points}" fill="none" stroke="url(#g${d}${i})" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="chartLabel"><span>${new Date(h[0].date).toLocaleDateString('fr-FR')}</span><span>Max ${max} kg</span><span>${new Date(h[h.length-1].date).toLocaleDateString('fr-FR')}</span></div></div>`})});document.getElementById('progressList').innerHTML=out||'<div class="empty">Aucune donnée pour le moment.<br>Saisis une charge dans une séance pour commencer le suivi.</div>'}
+let progressWeeks=0;
+function setPeriod(w){progressWeeks=w;renderProgress()}
+function filteredHistory(d,i){
+  let h=getHistory(d,i); if(!progressWeeks)return h;
+  let cutoff=Date.now()-progressWeeks*7*86400000;
+  return h.filter(x=>new Date(x.date).getTime()>=cutoff);
+}
+function renderProgress(){
+  let out='';
+  [1,3,5].forEach(d=>workouts[d].ex.forEach((e,i)=>{
+    let h=filteredHistory(d,i); if(!h.length)return;
+    let vals=h.map(x=>Number(x.weight)),min=Math.min(...vals),max=Math.max(...vals);
+    let delta=vals.length>1?vals[vals.length-1]-vals[0]:0;
+    let points=vals.map((v,n)=>{let x=10+(n/(Math.max(vals.length-1,1)))*280;let y=88-(max===min?40:((v-min)/(max-min))*68);return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');
+    out+=`<div class="progressItem"><div class="progressTop"><b>${e[0]}</b><span class="delta">${delta>0?'+':''}${delta} kg</span></div><div class="muted">${vals.length} mesure(s) • ${vals[0]} → ${vals[vals.length-1]} kg</div><svg class="chart" viewBox="0 0 300 105" preserveAspectRatio="none"><defs><linearGradient id="g${d}${i}" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><polyline points="${points}" fill="none" stroke="url(#g${d}${i})" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="chartLabel"><span>${new Date(h[0].date).toLocaleDateString('fr-FR')}</span><span>Max ${max} kg</span><span>${new Date(h[h.length-1].date).toLocaleDateString('fr-FR')}</span></div></div>`;
+  }));
+  document.getElementById('progressList').innerHTML=out||'<div class="empty">Aucune donnée dans cette période.<br>Saisis une charge dans une séance.</div>';
+  document.getElementById('periodLabel').textContent=progressWeeks?`Affichage des ${progressWeeks} dernières semaines`:'Historique complet';
+  renderBodyWeight();
+}
+function getBodyHistory(){try{return JSON.parse(localStorage.getItem('mc-bodyweight')||'[]')}catch{return[]}}
+function saveBodyWeight(){
+  let el=document.getElementById('bodyWeight'),v=el.value.replace(',','.').trim();
+  if(!v||isNaN(v))return;
+  let h=getBodyHistory();h.push({date:new Date().toISOString(),weight:Number(v)});
+  localStorage.setItem('mc-bodyweight',JSON.stringify(h));el.value='';renderBodyWeight();updateStats();
+}
+function renderBodyWeight(){
+  let h=getBodyHistory();let box=document.getElementById('bodyWeightHistory');
+  if(!h.length){box.textContent='Aucune mesure enregistrée.';document.getElementById('bodyChart').innerHTML='';return}
+  box.innerHTML=`Dernière mesure : <b>${h[h.length-1].weight} kg</b> • ${h.length} mesure(s)`;
+  let vals=h.map(x=>x.weight),min=Math.min(...vals),max=Math.max(...vals);
+  let pts=vals.map((v,n)=>{let x=10+(n/(Math.max(vals.length-1,1)))*280;let y=88-(max===min?40:((v-min)/(max-min))*68);return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');
+  document.getElementById('bodyChart').innerHTML=`<polyline points="${pts}" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  document.getElementById('bodyFirst').textContent=new Date(h[0].date).toLocaleDateString('fr-FR');
+  let d=h.length>1?h[h.length-1].weight-h[0].weight:0;document.getElementById('bodyTrend').textContent=(d>0?'+':'')+d.toFixed(1)+' kg';
+  document.getElementById('bodyLast').textContent=new Date(h[h.length-1].date).toLocaleDateString('fr-FR');
+}
 function updateStats(){let all=allHistory(),prs=0;[1,3,5].forEach(d=>workouts[d].ex.forEach((e,i)=>{let h=getHistory(d,i);if(h.length>1&&h[h.length-1].weight>h[h.length-2].weight)prs++}));document.getElementById('logs').textContent=all.length;document.getElementById('homeLogs').textContent=all.length;document.getElementById('prs').textContent=prs;document.getElementById('lastWeight').textContent=all.length?all[all.length-1].weight+'kg':'—'}
 function exportData(){let out={version:3,exportedAt:new Date().toISOString(),data:{}};Object.keys(localStorage).forEach(k=>{if(k.startsWith('mc-'))out.data[k]=localStorage.getItem(k)});let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}));a.download='mon-coach-donnees.json';a.click()}
 function clearAllData(){if(confirm('Effacer toutes les charges et l’historique ?')){Object.keys(localStorage).filter(k=>k.startsWith('mc-')).forEach(k=>localStorage.removeItem(k));location.reload()}}
 let t=0,int=null;function timerStart(s,l){t=s;document.getElementById('timerLabel').textContent=l;go('chrono');renderTime();clearInterval(int);int=setInterval(()=>{if(t>0){t--;renderTime()}else{clearInterval(int);navigator.vibrate?.([200,100,200])}},1000)}function renderTime(){document.getElementById('time').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')}function timerPause(){if(int){clearInterval(int);int=null;document.getElementById('pause').textContent='REPRENDRE'}else{int=setInterval(()=>{if(t>0){t--;renderTime()}},1000);document.getElementById('pause').textContent='PAUSE'}}function timerReset(){clearInterval(int);int=null;t=0;renderTime();document.getElementById('pause').textContent='REPRENDRE'}
-function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,1000);buildNav();updateStats();
+function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,1000);buildNav();updateStats();renderProgress();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script>
 </body></html>
