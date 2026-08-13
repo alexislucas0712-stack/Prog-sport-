@@ -433,6 +433,6 @@ function saveSettings(){
 updateDashboard();
 let t=0,int=null;function timerStart(s,l){t=s;document.getElementById('timerLabel').textContent=l;go('chrono');renderTime();clearInterval(int);int=setInterval(()=>{if(t>0){t--;renderTime()}else{clearInterval(int);navigator.vibrate?.([200,100,200])}},1000)}function renderTime(){document.getElementById('time').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')}function timerPause(){if(int){clearInterval(int);int=null;document.getElementById('pause').textContent='REPRENDRE'}else{int=setInterval(()=>{if(t>0){t--;renderTime()}},1000);document.getElementById('pause').textContent='PAUSE'}}function timerReset(){clearInterval(int);int=null;t=0;renderTime();document.getElementById('pause').textContent='REPRENDRE'}
 function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,1000);buildNav();updateStats();renderProgress();setActiveTab(new Date().getDay()===0?'d1':'d'+new Date().getDay());
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator)
 </script>
 </body></html>
